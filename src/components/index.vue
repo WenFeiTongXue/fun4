@@ -1,5 +1,7 @@
 <template>
   <section>
+    <input type="text" name="search">
+    <button>搜索</button>
     <div id="banner">
       <el-carousel :interval="3000" type="card" height="336px">
         <el-carousel-item v-for="item in banners" :key="item">
@@ -12,31 +14,29 @@
       <h1>歌 单 推 荐</h1>
       <swiper :options="swiperOption">
         <swiper-slide v-for="item of songlist" :key="item.id">
-          <div class="listImg">
-            <a href="javascript:;">
-              <img :src="item.pic" alt srcset>
-              <p>{{item.name}}</p>
-            </a>
-          </div>
+          
           <div class="mask">
             <a href="javascript:;" @click="geiListId">
               <img src="img/cover_play.png" alt :data-list-id="item.id">
             </a>
           </div>
+          <div class="listImg">
+            <a href="javascript:;">
+              <img :src="item.pic" alt srcset>
+            </a>
+          </div>
+          <p>{{item.name}}</p>
         </swiper-slide>
 
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
-      <audio id="player" src controls></audio>
+      <audio id="player" src controls ref="player" @ended="nextM"></audio>
       <button @click="nextM">下一首</button>
       <ul>
         <li v-for="(l,i) of name_list" :key="i">
           <a href="javascript:;" @click="playMusic(i)">{{l}}</a>
         </li>
       </ul>
-    </div>
-  </section>
-</template>
     </div>
   </section>
 </template>
@@ -61,10 +61,11 @@ export default {
           clickable: true
         }
       },
-      play_list: [],
-      url_list: [],
-      name_list:[],
-      star_url: 0
+      play_list: [],//歌单详情
+      url_list: [],//歌曲url列表
+      name_list:[],//歌曲名称列表
+      star_url: 0,//起始播放歌曲下标
+      is_ended:this.$refs.player
     };
   },
   methods: {
@@ -75,6 +76,7 @@ export default {
       var player = document.getElementById("player");
       player.autoplay = true;
       player.src = this.url_list[this.star_url];
+      console.log(this.$refs.player)
     },
     
     geiListId(e) {
@@ -88,6 +90,10 @@ export default {
         })
         .then(result => {
           this.play_list = result.data.data.songs;
+          console.log(this.play_list)
+          //重置播放列表中的内容
+          this.url_list=[];
+          this.name_list=[]
           for (let i of this.play_list) {
             this.url_list.push(i.url);
             this.name_list.push(i.name)
@@ -132,9 +138,11 @@ export default {
   width: 200px;
   height: 200px;
   margin: 0 auto;
+  overflow: hidden;
 }
 .listImg img {
   width: 100%;
+  transition:all .5s
 }
 .mask {
   position: absolute;
@@ -149,9 +157,13 @@ export default {
   align-items: center;
   justify-content: center;
   transition: all 0.5s;
+  z-index: 100;
 }
 .mask:hover {
   opacity: 0.4;
+}
+.mask:hover+div img{
+  transform: scale(1.1)
 }
 
 section {
