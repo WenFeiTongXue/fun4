@@ -1,9 +1,7 @@
 <template>
   <section>
-    <input type="text" name="search">
-    <button>搜索</button>
     <div id="banner">
-      <el-carousel :interval="3000" type="card" height="336px">
+      <el-carousel :interval="3000" type="card" height="277px">
         <el-carousel-item v-for="item in banners" :key="item">
           <!-- <h3>{{ item }}</h3> -->
           <img :src="item" alt srcset>
@@ -27,16 +25,8 @@
           </div>
           <p>{{item.name}}</p>
         </swiper-slide>
-
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
-      <audio id="player" src controls ref="player" @ended="nextM"></audio>
-      <button @click="nextM">下一首</button>
-      <ul>
-        <li v-for="(l,i) of name_list" :key="i">
-          <a href="javascript:;" @click="playMusic(i)">{{l}}</a>
-        </li>
-      </ul>
     </div>
   </section>
 </template>
@@ -51,7 +41,7 @@ export default {
         "img/index/109951163993441212.png",
         "img/index/109951163993759834.png"
       ],
-      songlist: [],
+      songlist: [],//推荐歌单列表
       swiperOption: {
         slidesPerView: 5,
         slidesPerColumn: 2,
@@ -61,26 +51,15 @@ export default {
           clickable: true
         }
       },
-      play_list: [],//歌单详情
-      url_list: [],//歌曲url列表
-      name_list:[],//歌曲名称列表
-      star_url: 0,//起始播放歌曲下标
-      is_ended:this.$refs.player
     };
   },
   methods: {
-    playMusic(n) {
-      if(n){
-        this.star_url=n
-      }
-      var player = document.getElementById("player");
-      player.autoplay = true;
-      player.src = this.url_list[this.star_url];
-      console.log(this.$refs.player)
+    toparent(data){
+      this.$emit("listenson",data)
     },
-    
     geiListId(e) {
       var id = e.target.dataset.listId;
+      console.log(id)
       this.axios
         .get("https://api.itooi.cn/music/tencent/songList", {
           params: {
@@ -89,22 +68,19 @@ export default {
           }
         })
         .then(result => {
-          this.play_list = result.data.data.songs;
-          console.log(this.play_list)
-          //重置播放列表中的内容
-          this.url_list=[];
-          this.name_list=[]
-          for (let i of this.play_list) {
-            this.url_list.push(i.url);
-            this.name_list.push(i.name)
-          }
-          this.playMusic();
+          // this.play_list = result.data.data.songs;
+          // console.log(this.play_list)
+          // //重置播放列表中的内容
+          // this.url_list=[];
+          // this.name_list=[]
+          // for (let i of this.play_list) {
+          //   this.url_list.push(i.url);
+          //   this.name_list.push(i.name)
+          // }
+          //   this.playMusic();
+          this.toparent(result.data.data)
         });
     },
-    nextM(){
-      this.star_url++
-      this.playMusic();
-    }
   },
   created() {
     // 获取歌单列表
@@ -127,7 +103,7 @@ export default {
   height: auto !important;
   margin-left: auto;
   margin-right: auto;
-  width: 1460px;
+  width: 1200px;
 }
 .swiper-slide {
   height: 260px;
@@ -172,7 +148,10 @@ section {
   text-align: center;
 }
 #banner {
-  width: 1460px;
+  width: 1200px;
   margin: 0 auto;
+}
+#banner img{
+  width: 100%;
 }
 </style>
