@@ -4,7 +4,7 @@
       <img src="img/fw1.png" alt id="logo">
     </router-link>
     <div>
-      <el-input placeholder="请输入内容" v-model="kword" @keyup.13.native="search" width="400">
+      <el-input placeholder="请输入内容" v-model="kword" @keyup.13.native="search">
         <i slot="suffix" class="el-input__icon el-icon-search" @click="search"></i>
       </el-input>
     </div>
@@ -17,9 +17,8 @@ export default {
   },
   methods: {
     search(e) {
-      if(this.kword.trim()!==""){
-        this.$router.push(`/search/${this.kword}`);
-      }
+      console.log(e.keyCode);
+      this.$router.push(`/search/${this.kword}`);
     }
   },
   created() {
