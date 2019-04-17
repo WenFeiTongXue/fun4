@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <el-input placeholder="请输入内容"  v-model="params.kw" @keyup.13.native="search">
+      <el-input placeholder="请输入内容" v-model="s" @keyup.13.native="search">
         <i slot="suffix" class="el-input__icon el-icon-search" @click="search"></i>
       </el-input>
     </div>
@@ -31,7 +31,6 @@ export default {
       params: {
         key: 579621905,
         // s:this.$route.query.s,
-        kw:"",
         type: "song",
         limit: 50,
         offset: 1
@@ -45,12 +44,11 @@ export default {
     },
     search() {
       // console.log(this.s)
-      if(this.s.trim()!==""){
       this.axios
         .get("https://api.itooi.cn/music/tencent/search", {
           params: {
             key: this.params.key,
-            s: this.params.kw,
+            s: this.s,
             limit: this.params.limit,
             offset: this.params.offset
           }
@@ -59,7 +57,6 @@ export default {
           console.log(result.data.data);
           this.tableData=result.data.data
         });
-      }
     },
     addplay(e){
       var i=e.target.dataset.i
@@ -68,12 +65,10 @@ export default {
     }
   },
   created() {
-    this.params.kw=this.s;
     this.search();
   },
   watch: {
-    $route () {
-      this.params.kw=this.s;
+    s() {
       this.search();
     }
   }
