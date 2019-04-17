@@ -1,4 +1,4 @@
-# Fun4_AP
+# Fun4
 
 ## Project setup
 ```
