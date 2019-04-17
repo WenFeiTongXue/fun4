@@ -59,7 +59,6 @@ export default {
     },
     geiListId(e) {
       var id = e.target.dataset.listId;
-      console.log(id)
       this.axios
         .get("https://api.itooi.cn/music/tencent/songList", {
           params: {
