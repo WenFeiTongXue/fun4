@@ -116,6 +116,6 @@ tr{
 }
 
 .colbg{
-  background:#b7e3f3
+  background:#b7e3f3;
 }
 </style>

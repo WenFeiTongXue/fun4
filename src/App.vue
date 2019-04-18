@@ -47,14 +47,23 @@ export default {
       }
     },
     addsong(data) {
+      for(var i=0;i<this.audio.length;i++){
+        if(data.singer==this.audio[i].singer){
+          break;
+        }
+      }
+      if(i==this.audio.length){
         data.artist=data.singer
         data.cover=data.pic
-      console.log(data)
-      this.audio.unshift(data);
-      this.$refs.aplayer.switch(0)
+        this.audio.unshift(data);
+        this.$refs.aplayer.switch(0)
+      }else{
+        this.$refs.aplayer.switch(i)
+      }
     },
     showson(data) {
       console.log(data);
+      // if(){}
       this.play_list = data.songs;
       for(var i of this.play_list){
         i.artist=i.singer

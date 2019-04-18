@@ -9,6 +9,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 // 引入APlayer
 import APlayer from '@moefe/vue-aplayer';
+import VueJsonp from 'vue-jsonp'
 
 Vue.config.productionTip = false
 Vue.prototype.axios=axios
@@ -20,6 +21,7 @@ Vue.use(APlayer, {
   defaultCover: 'https://github.com/u3u.png',
   productionTip: true,
 });
+Vue.use(VueJsonp)
 
 new Vue({
   router,
