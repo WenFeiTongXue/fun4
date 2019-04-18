@@ -11,13 +11,13 @@
     <el-menu
       :default-active="activeIndex"
       class="el-menu-demo"
-      mode="horizontal"
+      mode="horizontal" router
       @select="handleSelect"
     >
-      <el-menu-item index="1">首页</el-menu-item>
+      <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="2">歌手</el-menu-item>
       <el-menu-item index="3">专辑</el-menu-item>
-      <el-menu-item index="4">排行榜</el-menu-item>
+      <el-menu-item index="/top">排行榜</el-menu-item>
     </el-menu>
   </header>
 </template>

@@ -55,19 +55,15 @@ export default {
   methods: {
     test6(){
       let url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg?channel=singer&page=list&key=all_all_all&pagesize=100&pagenum=1&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0';
-        $.ajax({
-          url:url,
-          type:"get",
-          dataType:'jsonp',
-          jsonp: "jsonpCallback",
-          scriptCharset: 'GBK',//解决中文乱码
-          success: function(data){
-            console.log(data);
-          },
-          error:function (e) {
-            console.log('error');
-          }
-      });
+      this.$jsonp(url,{
+　　callbackQuery: 'callbackParam', // jsonp key //请求传递参数 1
+　　callbackName: 'jsonpCallback', // jsonp key //请求传递参数 2
+} ).then(json => {
+　　// 返回数据 json， 返回的数据就是json格式
+console.log(json)
+}).catch(err => {
+　　console.log(err)
+})
       
     },
     test5() {

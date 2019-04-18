@@ -1,5 +1,6 @@
 <template>
   <section>
+    <div>
     <div id="banner">
       <el-carousel :interval="3000" type="card" height="277px">
         <el-carousel-item v-for="item in banners" :key="item">
@@ -7,6 +8,7 @@
           <img :src="item" alt srcset>
         </el-carousel-item>
       </el-carousel>
+    </div>
     </div>
     <div>
       <h1>最 新 音 乐</h1>
@@ -193,7 +195,7 @@ export default {
 section {
   /* width:1000px; */
   margin: 0 auto;
-  text-align: center;
+  /* text-align: center; */
 }
 #banner {
   width: 1200px;
@@ -205,8 +207,12 @@ section {
 h1{
   width:1200px;
   font:30px poppin,Tahoma,Arial,\5FAE\8F6F\96C5\9ED1,sans-serif;
-  background:#b7e3f3;
-  margin:30px auto;
+  /* background:#b7e3f3; */
+  padding:20px 0;
+  margin:0 auto;
   color:#888;
+}
+section>div:not(:first-child){
+  background-image:linear-gradient(#f9fcfd,#fff)
 }
 </style>

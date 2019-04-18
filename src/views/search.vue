@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="container">
     <div>
       <el-input placeholder="请输入内容"  v-model="params.kw" @keyup.13.native="search">
@@ -25,6 +26,7 @@
         <el-button @click="nextP">下一页</el-button>
       </div>
     </div>
+  </div>
   </div>
 </template>
 <script>
@@ -116,6 +118,9 @@ tr{
 }
 
 .colbg{
-  background:#b7e3f3;
+  background:#eff6f9;
+}
+header+div{
+    background-image:linear-gradient(#f9fcfd,#fff)
 }
 </style>

@@ -3,12 +3,12 @@
     <my-header></my-header>
     <router-view @listenson="showson" @listenadd="addsong"/>
     <aplayer :audio="audio" :lrcType="3" fixed autoplay ref="aplayer"/>
-    <ul id="playlistbox" :class="`${play_list_box.addStyle?'boxShow':''}`">
+    <!-- <ul id="playlistbox" :class="`${play_list_box.addStyle?'boxShow':''}`">
       <li v-for="(l,i) of play_list" :key="i" :class="`${i==playnum?'chose':''}`">
         <a href="javascript:;" @click="playMusic(i)">{{l.name}}</a>
         <a href="javascript:;" @click="delsong(i)" class="rt">&times;</a>
       </li>
-    </ul>
+    </ul> -->
     <footer></footer>
   </div>
 </template>
