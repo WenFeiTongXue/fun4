@@ -2,15 +2,6 @@
   <div id="app">
     <my-header></my-header>
     <router-view @listenson="showson" @listenadd="addsong"/>
-    <!-- <div id="playerbox">
-      <button @click="playerShow">隐藏</button>
-      <div :class="`${player_box.addStyle?'playerShow':''}`">
-        <audio id="player" src controls Volume=".5" ref="player" @ended="nextM"></audio>
-        <span>{{play_list[playnum].name}}</span>
-        <button @click="prevM">上一首</button>
-        <button @click="nextM">下一首</button>
-      </div>
-    </div> -->
     <aplayer :audio="audio" :lrcType="3" fixed autoplay ref="aplayer"/>
     <ul id="playlistbox" :class="`${play_list_box.addStyle?'boxShow':''}`">
       <li v-for="(l,i) of play_list" :key="i" :class="`${i==playnum?'chose':''}`">
@@ -56,16 +47,11 @@ export default {
       }
     },
     addsong(data) {
-      // console.log(this.play_list);
         data.artist=data.singer
         data.cover=data.pic
       console.log(data)
       this.audio.unshift(data);
       this.$refs.aplayer.switch(0)
-      // this.play_list.unshift(data);
-      // this.playnum = 0;
-      // console.log(this.play_list)
-      // this.playMusic();
     },
     showson(data) {
       console.log(data);
@@ -76,42 +62,7 @@ export default {
       }
       this.audio=this.play_list
       console.log(this.play_list)
-      // this.playMusic();
     },
-    // playMusic(n) {
-    //   if (n) {
-    //     this.playnum = n;
-    //   }
-    //   var player = document.getElementById("player");
-    //   player.autoplay = true;
-    //   player.src = this.play_list[this.playnum].url;
-    //   console.log(this.$refs.player);
-    //   console.log(this.playnum);
-    //   this.play_list_box.addStyle = true;
-    // },
-
-    // geiListId(e) {
-    //   var id = e.target.dataset.listId;
-    //   this.axios
-    //     .get("https://api.itooi.cn/music/tencent/songList", {
-    //       params: {
-    //         key: 579621905,
-    //         id
-    //       }
-    //     })
-    //     .then(result => {
-    //       this.play_list = result.data.data.songs;
-    //       console.log(this.play_list)
-    //       //重置播放列表中的内容
-    //       this.url_list=[];
-    //       this.name_list=[]
-    //       for (let i of this.play_list) {
-    //         this.url_list.push(i.url);
-    //         this.name_list.push(i.name)
-    //       }
-    //       this.playMusic();
-    //     });
-    // },
     nextM() {
       if (this.playnum == this.play_list.length - 1) {
         this.playnum = 0;

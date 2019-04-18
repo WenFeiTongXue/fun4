@@ -67,16 +67,6 @@ export default {
           }
         })
         .then(result => {
-          // this.play_list = result.data.data.songs;
-          // console.log(this.play_list)
-          // //重置播放列表中的内容
-          // this.url_list=[];
-          // this.name_list=[]
-          // for (let i of this.play_list) {
-          //   this.url_list.push(i.url);
-          //   this.name_list.push(i.name)
-          // }
-          //   this.playMusic();
           this.toparent(result.data.data)
         });
     },

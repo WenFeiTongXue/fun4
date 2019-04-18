@@ -20,6 +20,10 @@
           <td><a href="javascript:" :data-i="i" @click="addplay">播放</a></td>
         </tr>
       </table>
+      <div>
+        <el-button @click="prevP">上一页</el-button>
+        <el-button @click="nextP">下一页</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -30,16 +34,25 @@ export default {
     return {
       params: {
         key: 579621905,
-        // s:this.$route.query.s,
         kw:"",
         type: "song",
-        limit: 50,
+        limit: 20,
         offset: 1
       },
        tableData:[]
     };
   },
   methods: {
+    nextP(){
+      this.params.offset++
+      this.search()
+    },
+    prevP(){
+      if(this.params.offset>1){
+        this.params.offset--
+        this.search()
+      }
+    },
     toparent(data){
       this.$emit("listenadd",data)
     },
@@ -83,6 +96,10 @@ export default {
 .container{
   width:1200px;
   margin:0 auto;
+}
+.container>div:first-child{
+  padding:60px 200px 60px 20px;
+  background:url("../../public/img/search/bg_search.jpg")
 }
 table{
   width:1200px;
