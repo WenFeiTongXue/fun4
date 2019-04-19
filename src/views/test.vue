@@ -40,6 +40,7 @@
   </div>
 </template>
 <script>
+import { setInterval } from 'timers';
 export default {
   data() {
     return {
@@ -49,25 +50,14 @@ export default {
       limit: 100,
       list_id: 0,
       song_list: [],
-      new_list:[]
+      new_list:[],
+      s:[]
     };
   },
   methods: {
     test6(){
-      let url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg?channel=singer&page=list&key=all_all_all&pagesize=100&pagenum=1&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0';
-      this.$jsonp(url,{
-　　callbackQuery: 'callbackParam', // jsonp key //请求传递参数 1
-　　callbackName: 'jsonpCallback', // jsonp key //请求传递参数 2
-} ).then(json => {
-　　// 返回数据 json， 返回的数据就是json格式
-console.log(json)
-}).catch(err => {
-　　console.log(err)
-})
-      
-    },
-    test5() {
-       let url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&tpl=3&page=detail&type=top&topid=27&_=1519963122923';
+      var num=4
+      let url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg?channel=singer&page=list&key=all_all_all&pagesize=100&pagenum='+num+'&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0';
         $.ajax({
           url:url,
           type:"get",
@@ -76,23 +66,66 @@ console.log(json)
           scriptCharset: 'GBK',//解决中文乱码
           success: function(data){
             //获取数据
-            console.log(data)
-            // 最新音乐数据
-            console.log(data.songlist)
-            var songid=[]
-            // 遍历音乐数据，获取前100歌曲id
-            for(let i of data.songlist){
-              songid.push(i.data.songmid)
+            console.log(data.data)
+            for(var params of data.data.list){
+              var ss="?"
+              for(var k in params){
+                params[k]=params[k].replace(/&/g,"%26");
+                ss+=(k+"="+params[k]+"&");
+              }
+              ss=ss.substring(0,ss.length-1)
+              console.log(ss);
             }
-            this.new_list=songid;
-            console.log(this.new_list)
+          }
+        })
+    },
+    test5() {
+      var num=1
+      var t=setInterval(function(){
+       let url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg?channel=singer&page=list&key=all_all_all&pagesize=100&pagenum='+num+'&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0';
+        $.ajax({
+          url:url,
+          type:"get",
+          dataType:'jsonp',
+          jsonp: "jsonpCallback",
+          scriptCharset: 'GBK',//解决中文乱码
+          success: function(data){
+            //获取数据
+            console.log(data.data)
+            // 最新音乐数据
+            this.s=data.data.list;
+            for(var params of this.s){
+              var ss="?"
+              for(var k in params){
+                params[k]=params[k].replace(/&/g,"%26");
+                ss+=(k+"="+params[k]+"&");
+              }
+              ss=ss.substring(0,ss.length-1)
+              var u="http://127.0.0.1:3000/user/reg"+ss
+              $.ajax({
+                url:u,
+                type:"get",
+                success: function(data){
+                },
+                error:function(e){
+                  console.log('error');
+                  console.log(num);
+                  clearInterval(t)
+                }
+              })
+            }
           },
           error:function (e) {
             console.log('error');
+            clearInterval(t)
           }
         })
-        // 遍历获取详情
-      this.axios.get("")
+      console.log(num)
+      num++;
+      if(num>5528){
+        clearInterval(t)
+      }
+      },5000)
     },
     test4() {
       this.axios

@@ -15,7 +15,7 @@
       @select="handleSelect"
     >
       <el-menu-item index="/">首页</el-menu-item>
-      <el-menu-item index="2">歌手</el-menu-item>
+      <el-menu-item index="/singer">歌手</el-menu-item>
       <el-menu-item index="3">专辑</el-menu-item>
       <el-menu-item index="/top">排行榜</el-menu-item>
     </el-menu>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       kword: "" ,
-      activeIndex: '1',
+      activeIndex: '/',
       activeIndex2: '1'
     };
   },

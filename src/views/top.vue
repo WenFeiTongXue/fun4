@@ -18,11 +18,14 @@
         <tr v-for="(t,i) of show_list" :key="i" :class="`${i%2==0?'colbg':''}`">
           <td>{{t.data.albumname}}</td>
           <td>{{t.data.singer[0].name}}</td>
-          <td><a href="javascript:" :data-i="i" >播放</a></td>
+          <td><a href="javascript:" :data-id="`${t.data.songmid}`" @click="addplay">播放</a></td>
         </tr>
       </table>
-        <el-pagination layout="prev, pager, next" :total="50">
+      <div class="rt">
+        <el-pagination  @current-change="handleCurrentChange" 
+       :current-page="currentPage" layout="prev ,pager , next" :total="totalpage">
         </el-pagination>
+      </div>
       </div>
     </el-tab-pane>
     </el-tabs>
@@ -35,17 +38,50 @@ export default {
     return {
       toplist:[],
       toplist_detail:[],
-      show_list:[]
+      show_list:[],
+      currentPage : 1 ,
+      totalpage : 0
     }
   },
   methods:{
-    showlist(){
-      if(this.toplist_detail.length<=20){
-        this.show_list=this.toplist_detail
-      }else{
-      this.show_list=this.toplist_detail.slice(0,20);
-      }
+     // 初始化渲染的数组
+    initUsers : function(){
+       this.show_list = this.toplist_detail.slice(0,19)
     },
+    // 初始化总页数
+    inittotalpage  : function(){
+      this.totalpage = this.toplist_detail.length/2
+      console.log(this.totalpage)
+    },
+   // 改变页面 这时候数据也会改变
+    handleCurrentChange (val) {
+      this.currentPage = val
+      this.show_list = this.toplist_detail.slice((this.currentPage-1)*20,this.currentPage*20);
+    },
+    //以上为设置分页
+    addplay(e){
+      //获取歌曲id
+      var i =e.target.dataset.id
+      //通过歌曲id搜索歌曲对象
+      this.axios
+        .get("https://api.itooi.cn/music/tencent/song", {
+          params: {
+            key: 579621905,
+            id:i
+          }
+        })
+        .then(result => {
+          //将获取的歌曲对象发送至父组件进行播放
+          this.$emit("listenadd",result.data.data)
+        });
+    },
+    // showlist(){
+    //   if(this.toplist_detail.length<=20){
+    //     this.show_list=this.toplist_detail
+    //   }else{
+    //   this.show_list=this.toplist_detail.slice(0,20);
+    //   }
+    // },
     topSearch(tab, event){
       var id=tab.$el.dataset.id;
       this.getTop(id)
@@ -64,9 +100,11 @@ export default {
         //获取数据
           // console.log(result)
           this.toplist_detail=result.songlist;
-          this.showlist();
+          // this.showlist();
           console.log(this.toplist_detail);
-          console.log(this.show_list);
+          // console.log(this.show_list);
+          this.initUsers();
+          this.inittotalpage ();
       })
     }
   },
@@ -120,6 +158,9 @@ div.el-tabs__item{
 }
 .colbg{
   background:#eff6f9;
+}
+.rt{
+  float:right;
 }
 header+div{
     background-image:linear-gradient(#f9fcfd,#fff)
