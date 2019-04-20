@@ -3,9 +3,9 @@
     <div>
     <div id="banner">
       <el-carousel :interval="3000" type="card" height="277px">
-        <el-carousel-item v-for="item in banners" :key="item">
+        <el-carousel-item v-for="item in banners" :key="item.i">
           <!-- <h3>{{ item }}</h3> -->
-          <img :src="item" alt srcset>
+          <img :src="item.picUrl" alt srcset>
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -57,13 +57,7 @@
 export default {
   data() {
     return {
-      banners: [
-        "img/index/109951163992121380.png",
-        "img/index/109951163992654354.png",
-        "img/index/109951163992897616.png",
-        "img/index/109951163993441212.png",
-        "img/index/109951163993759834.png"
-      ],
+      banners: [],
       songlist: [],//推荐歌单列表
       newsonglist:[],//最新音乐
       newsongTJ:[],
@@ -132,6 +126,20 @@ export default {
     },
   },
   created() {
+    //获取轮播图片
+    let url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg';
+    $.ajax({
+      url:url,
+      type:"get",
+      dataType:'jsonp',
+      jsonp: "jsonpCallback",
+      scriptCharset: 'GBK',//解决中文乱码
+    }).then(data=>{
+        //获取数据
+        console.log(data.data)
+        this.banners=data.data.slider
+        console.log(this.banners);
+    })
     //获取推荐新歌
     this.newsong()
     // 获取推荐歌单
@@ -198,11 +206,12 @@ section {
   /* text-align: center; */
 }
 #banner {
-  width: 1200px;
+  width: 1500px;
   margin: 0 auto;
 }
-#banner img{
-  width: 100%;
+.el-carousel__item img {
+    width:751px;
+    height:300px;
 }
 h1{
   width:1200px;

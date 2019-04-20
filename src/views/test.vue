@@ -56,8 +56,7 @@ export default {
   },
   methods: {
     test6(){
-      var num=4
-      let url = 'https://c.y.qq.com/v8/fcg-bin/v8.fcg?channel=singer&page=list&key=all_all_all&pagesize=100&pagenum='+num+'&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0';
+      let url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg';
         $.ajax({
           url:url,
           type:"get",
@@ -67,15 +66,7 @@ export default {
           success: function(data){
             //获取数据
             console.log(data.data)
-            for(var params of data.data.list){
-              var ss="?"
-              for(var k in params){
-                params[k]=params[k].replace(/&/g,"%26");
-                ss+=(k+"="+params[k]+"&");
-              }
-              ss=ss.substring(0,ss.length-1)
-              console.log(ss);
-            }
+           
           }
         })
     },
