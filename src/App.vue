@@ -54,9 +54,9 @@ export default {
           break;
         }
       }
+      data.artist=data.singer
+      data.cover=data.pic
       if(i==this.audio.length){
-        data.artist=data.singer
-        data.cover=data.pic
         this.audio.unshift(data);
         this.$refs.aplayer.switch(0)
       }else{
@@ -64,7 +64,6 @@ export default {
       }
     },
     showson(data) {
-      console.log(data);
       // if(){}
       this.play_list = data.songs;
       for(var i of this.play_list){
@@ -72,7 +71,6 @@ export default {
         i.cover=i.pic
       }
       this.audio=this.play_list
-      console.log(this.play_list)
     },
     nextM() {
       if (this.playnum == this.play_list.length - 1) {
