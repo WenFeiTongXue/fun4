@@ -17,21 +17,18 @@
         </div>
         <div>
           <h3>热门专辑</h3>
-          <swiper :options="swiperOption">
-            <swiper-slide v-for="(a,i) of albumlist" :key="i">
-              <div class="listImg">
-                <a href="javascript:;">
-                  <!-- <img
-                    :src="`http://y.gtimg.cn/music/photo_new/T001R150x150M000${item.albumlist.musicData[albummid]}.jpg?max_age=2592000`"
-                    alt
-                    srcset
-                  > -->
-                </a>
-              </div>
-              <p>{{item.albumlist.musicData}}</p>
-            </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
-          </swiper>
+          <!-- <swiper :options="swiperOption">
+        <swiper-slide v-for="(item,i) of albumlist" :key="i">
+          <div class="listImg">
+            <a href="javascript:;">
+              <img  :src="`http://y.gtimg.cn/music/photo_new/T002R300x300M000${item.musicData.albummid}.jpg?max_age=2592000`" alt srcset >
+            </a>
+          </div>
+          <p>{{item.musicData.albumname}}</p>
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper> -->
+      
         </div>
       </div>
     </div>
@@ -48,6 +45,7 @@ export default {
         spaceBetween: 0,
         pagination: {
           el: ".swiper-pagination",
+          type:"fraction",
           clickable: true
         }
       },
@@ -77,6 +75,14 @@ export default {
 };
 </script>
 <style scoped>
+  .swiper-container {
+    height: auto!important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .swiper-slide {
+    height: 200px;
+  }
 #singerdetail {
   margin-top: 20px;
   display: flex;

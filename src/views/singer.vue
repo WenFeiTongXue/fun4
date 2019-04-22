@@ -13,16 +13,11 @@
         <swiper-slide v-for="(item,i) of singer_detai" :key="i">
             <a href="javascript:;"  @click="toSinger">
           <div class="mask" :data-sid="item.Fsinger_mid">
-              
           </div>
             </a>
           <div class="listImg">
             <a href="javascript:;">
-              <img
-                :src="`http://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`"
-                alt
-                srcset
-              >
+              <img  :src="`http://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`" alt srcset >
             </a>
           </div>
           <p>{{item.Fsinger_name}}</p>
