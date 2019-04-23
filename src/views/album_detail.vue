@@ -16,6 +16,7 @@
         <h3>发行时间:{{cddetail.aDate}}</h3>
         <h3>唱片公司:{{cddetail.company}}</h3>
         <h3>歌曲分类:{{cddetail.genre}}</h3>
+        <h3>专辑评分：<el-rate v-model="value" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate></h3>
       </div>
       <dir class="cdlist lf">
         <table>
@@ -48,6 +49,7 @@
 export default {
   props:["aid"],
   data(){return {
+    value:'',
     cddetail:[],
     songs:[],
     currentPage: 1,
