@@ -50,7 +50,7 @@ export default {
     },
     addsong(data) {
       for(var i=0;i<this.audio.length;i++){
-        if(data.singer==this.audio[i].singer){
+        if(data.id==this.audio[i].id){
           break;
         }
       }

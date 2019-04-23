@@ -116,7 +116,6 @@ export default {
           }
         })
         .then(result => {
-          console.log(result)
           //将获取的歌曲对象发送至父组件进行播放
           this.$emit("listenadd", result.data.data);
         });
