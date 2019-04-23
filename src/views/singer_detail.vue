@@ -19,9 +19,9 @@
           <h3>热门专辑</h3>
           <div class="cds">
             <div v-for="(item,i) of albumlist.slice(0,8)" :key="i" class="cd">
-              <a href="javascript:;" class="mask">
+              <router-link :to="`/album_detail\/${item.musicData.albummid}`" class="mask">
                 <img src="img/coverall.png" alt srcset>
-              </a>
+              </router-link>
               <a href="javascript:;">
                 <img
                   :src="`http://y.gtimg.cn/music/photo_new/T002R150x150M000${item.musicData.albummid}.jpg?max_age=2592000`"
