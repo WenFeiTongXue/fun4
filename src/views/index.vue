@@ -2,7 +2,7 @@
   <section>
     <div>
     <div id="banner">
-      <el-carousel :interval="3000" type="card" height="277px">
+      <el-carousel :interval="3000" type="card" height="240px">
         <el-carousel-item v-for="item in banners" :key="item.i">
           <!-- <h3>{{ item }}</h3> -->
           <img :src="item.picUrl" alt srcset>
@@ -173,6 +173,8 @@ export default {
   height: 200px;
   margin: 0 auto;
   overflow: hidden;
+  border-radius: 10%;
+  border:1px solid #ddd;
 }
 .listImg img {
   width: 100%;
@@ -192,6 +194,7 @@ export default {
   justify-content: center;
   transition: all 0.5s;
   z-index: 100;
+  border-radius: 10%;
 }
 .mask:hover {
   opacity: 0.4;
@@ -206,12 +209,12 @@ section {
   /* text-align: center; */
 }
 #banner {
-  width: 1500px;
+  width: 1200px;
   margin: 0 auto;
 }
 .el-carousel__item img {
-    width:751px;
-    height:300px;
+    width:100%;
+    /* height:300px; */
 }
 h1{
   width:1200px;

@@ -16,7 +16,7 @@
     >
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/singer">歌手</el-menu-item>
-      <el-menu-item index="3">专辑</el-menu-item>
+      <el-menu-item index="/album">专辑</el-menu-item>
       <el-menu-item index="/top">排行榜</el-menu-item>
     </el-menu>
   </header>

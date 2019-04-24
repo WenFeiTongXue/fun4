@@ -41,7 +41,7 @@
     </div>
     <div class="container">
       <h1>专辑详情:</h1>
-      <p>{{cddetail.desc}}</p>
+      <pre>{{cddetail.desc}}</pre>
     </div>
   </div>
 </template>
@@ -111,14 +111,24 @@ export default {
 }
 </script>
 <style scoped>
+pre{
+  white-space:pre-wrap;
+  word-wrap:break-word;
+}
 .colbg{
   background:#eff6f9;
 }
+.cdlist>table td:nth-child(2){
+  width:80%;
+  text-align: left
+}
 .cdlist>table{
   width:100%;
+  text-align: center;
 }
 .cdlist{
-  width:510px;
+  width:500px;
+  margin-left:10px;
 }
 .cddes h3{
   margin:10px;
