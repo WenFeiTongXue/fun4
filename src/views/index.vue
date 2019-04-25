@@ -46,7 +46,7 @@
           </div>
           <p>{{item.name}}</p>
         </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
+        <!-- <div class="swiper-pagination" slot="pagination"></div> -->
       </swiper>
     </div>
     <div>
@@ -65,10 +65,10 @@ export default {
         slidesPerView: 5,
         slidesPerColumn: 2,
         spaceBetween: 0,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true
-        }
+        // pagination: {
+        //   el: ".swiper-pagination",
+        //   clickable: true
+        // }
       },
     };
   },
