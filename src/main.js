@@ -13,7 +13,7 @@ import VueJsonp from 'vue-jsonp'
 
 Vue.config.productionTip = false
 Vue.prototype.axios=axios
-axios.default.withCwithCredentials=true;
+// axios.defaults.withCredentials=true;
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 Vue.use(ElementUI);
 //配置APlayer
