@@ -36,15 +36,15 @@
         <swiper-slide v-for="item of songlist" :key="item.id">
           <div class="mask">
             <a href="javascript:;" @click="geiList">
-              <img src="img/cover_play.png" alt :data-list-id="item.id">
+              <img src="img/cover_play.png" alt :data-list-id="item.dissid">
             </a>
           </div>
           <div class="listImg">
             <a href="javascript:;">
-              <img :src="item.pic" alt srcset>
+              <img :src="item.imgurl" alt srcset>
             </a>
           </div>
-          <p>{{item.name}}</p>
+          <p>{{item.dissname}}</p>
         </swiper-slide>
         <!-- <div class="swiper-pagination" slot="pagination"></div> -->
       </swiper>
@@ -145,10 +145,11 @@ export default {
     // 获取推荐歌单
     this.axios
       .get(
-        "https://api.itooi.cn/music/tencent/hotSongList?key=579621905&categoryId=10000000&sortId=3&limit=19"
+        "https://v1.itooi.cn/tencent/songList/hot?cat=%E5%85%A8%E9%83%A8&pageSize=19&page=0"
       )
       .then(result => {
-        this.songlist = result.data.data;
+        this.songlist = result.data.data.list;
+        console.log(this.songlist)
       })
   }
 };
